@@ -1,0 +1,6 @@
+.left-panel {
+  height: 100%;
+  min-height: 0;
+  border-right: 3px solid #A0A0A0;
+  position: relative;
+}

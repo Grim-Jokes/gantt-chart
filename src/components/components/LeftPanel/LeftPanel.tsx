@@ -1,0 +1,38 @@
+import type { Entry } from "../../../types";
+import "./LeftPanel.css";
+
+export type Header = string;
+
+export type HeaderFieldMap = Record<Header, string>;
+
+interface LeftPanelProps {  
+    entries: Entry[];
+    onDividerDrag: (e: React.MouseEvent<HTMLDivElement>) => void;
+    width: number;
+    className?: string;
+}
+
+export const LeftPanel = ({ entries, width, className, onDividerDrag }: LeftPanelProps) => {
+  return (
+    <div className={`left-panel ${className}`} style={{ width: `${width}%` }}>
+      {entries.map((entry) => (
+        <div key={entry.id}>
+          <div>{entry.content}</div>
+        </div>
+      ))}
+      <div 
+        className="drag-handle" 
+        onMouseDown={onDividerDrag}
+        style={{
+          position: 'absolute',
+          right: 0,
+          top: 0,
+          bottom: 0,
+          width: '4px',
+          cursor: 'col-resize',
+          backgroundColor: 'transparent'
+        }}
+      />
+    </div>
+  );
+};

@@ -10,16 +10,27 @@ interface LeftPanelProps {
     onDividerDrag: (e: React.MouseEvent<HTMLDivElement>) => void;
     width: number;
     className?: string;
+    headers: Record<string, string>
 }
 
-export const LeftPanel = ({ entries, width, className, onDividerDrag }: LeftPanelProps) => {
+export const LeftPanel = ({ entries, headers, width, className, onDividerDrag }: LeftPanelProps) => {
+
+  const headerFields = Object.keys(headers)
+
+
   return (
     <div className={`left-panel ${className}`} style={{ width: `${width}%` }}>
+
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        {headerFields.map((header: string) => (<div key={header}>{header}</div>))}
+      </div>
+
       {entries.map((entry) => (
         <div key={entry.id}>
           <div>{entry.content}</div>
         </div>
       ))}
+      
       <div 
         className="drag-handle" 
         onMouseDown={onDividerDrag}

@@ -1,0 +1,12 @@
+.gantt {
+    border: 1px solid #E1E9EC;
+    border-radius: 4px;
+}
+
+.col {
+    padding: 8px 16px 8px 8px;
+}
+
+.col {
+    min-width: 150px;
+}

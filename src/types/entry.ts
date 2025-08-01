@@ -1,6 +1,10 @@
-export interface Entry {
+export interface BaseData {
+    startDate?: Date,
+    endDate?: Date,
+}
+
+export interface Entry<T  extends BaseData = object> {
     id: string;
-    startDate?: Date;
-    endDate?: Date;
     content: string
+    data?: T
 }

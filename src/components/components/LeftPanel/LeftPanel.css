@@ -3,4 +3,22 @@
   min-height: 0;
   border-right: 3px solid #A0A0A0;
   position: relative;
+  overflow: hidden;
+}
+
+.left-panel .header-row {
+  background-color: #F6F8F9;
+}
+
+.left-panel .header-row .header-col {
+  height: 48px;
+}
+
+.left-panel .entry-row {
+  border-bottom: 1px solid #E1E9EC;
+}
+
+.left-panel .header-row,
+.left-panel .row{
+  width: 100%
 }

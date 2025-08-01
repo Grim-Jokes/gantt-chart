@@ -1,35 +1,29 @@
-import type { Entry } from "../../../types";
+import { useMemo } from "react";
+import type { BaseData, Entry } from "../../../types";
+import { Header } from "./components/Header";
+import { Rows } from "./components/Rows";
 import "./LeftPanel.css";
 
 export type Header = string;
 
 export type HeaderFieldMap = Record<Header, string>;
 
-interface LeftPanelProps {  
-    entries: Entry[];
+interface LeftPanelProps<T extends BaseData> {  
+    entries: Entry<T>[];
     onDividerDrag: (e: React.MouseEvent<HTMLDivElement>) => void;
     width: number;
     className?: string;
     headers: Record<string, string>
 }
 
-export const LeftPanel = ({ entries, headers, width, className, onDividerDrag }: LeftPanelProps) => {
-
-  const headerFields = Object.keys(headers)
-
+export const LeftPanel = <T extends BaseData,>({ entries, headers, width, className, onDividerDrag }: LeftPanelProps<T>) => {
+  const headerFields = useMemo(() => Object.keys(headers), [headers])
 
   return (
     <div className={`left-panel ${className}`} style={{ width: `${width}%` }}>
+      <Header headers={headerFields} />
 
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        {headerFields.map((header: string) => (<div key={header}>{header}</div>))}
-      </div>
-
-      {entries.map((entry) => (
-        <div key={entry.id}>
-          <div>{entry.content}</div>
-        </div>
-      ))}
+      <Rows entries={entries} />
       
       <div 
         className="drag-handle" 

@@ -10,11 +10,16 @@ interface GanttProps<T extends BaseData> {
   entries: Entry<T>[];
   headers: Record<string, string>
   leftPanelClassName?: string;
+  startDate?: Date,
+  endDate?: Date
 }
 
-export const Gantt = ({ headers={}, entries  = [], leftPanelClassName }: GanttProps<BaseData> ) => {
+export const Gantt = ({ headers={}, entries  = [], leftPanelClassName, startDate = new Date(), endDate =new Date(new Date().setDate(365)) }: GanttProps<BaseData> ) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { width, handleResize } = useWidth({ containerRef });
+
+
+  
 
   return <div className="gantt" style={{ width: "100%", height: "100vh", display: "flex" }} ref={containerRef}>
     <LeftPanel 
@@ -23,6 +28,6 @@ export const Gantt = ({ headers={}, entries  = [], leftPanelClassName }: GanttPr
       entries={entries} 
       width={width} 
       onDividerDrag={handleResize} />
-    <RightPanel entries={entries} width={100 - width} />
+    <RightPanel entries={entries} width={100 - width} startDate={startDate} endDate={endDate} />
   </div>;
 };

@@ -1,20 +1,27 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Gantt } from '../components';
+import { v4 } from 'uuid';
+
+const today = new Date();
+
 
 const meta: Meta<typeof Gantt> = {
   title: 'Components/Gantt',
   component: Gantt,
   args: {
-    entries: [
-      {
-        content: "test",
-        id: "b7e6c2e2-1f3a-4c8e-9e2a-7c2e4b8d9f1a",
-      },
-      {
-        content: "test 1" ,
-        id: "b7e6c2e2-1f3a-4c8e-9e2a-7c2e4b8d9f1a",
-      }
-    ],
+    entries: Array.from({ length: 150 }).map((_, index) => {
+      const offset = Math.floor(Math.random() * 11);
+
+      return {
+        id: v4(),
+        content: "test " + index,
+        data: {
+          name: "test " + index,
+          startDate: new Date(new Date(today).setDate(today.getDate() - offset)),
+          endDate: new Date(new Date(today).setDate(today.getDate() - offset))
+        }
+       }
+    }),
     headers: {
       "Title": "content",
       "Start Date": "startDate",

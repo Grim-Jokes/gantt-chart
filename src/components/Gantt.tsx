@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import type { BaseData, Entry } from "../types";
 import { LeftPanel } from "./components/LeftPanel";
 import { RightPanel } from "./components/RightPanel";
@@ -14,13 +14,16 @@ interface GanttProps<T extends BaseData> {
   endDate?: Date
 }
 
-export const Gantt = ({ headers={}, entries  = [], leftPanelClassName, startDate = new Date(), endDate }: GanttProps<BaseData> ) => {
+export const Gantt = ({ headers={}, entries  = [], leftPanelClassName, startDate = new Date(), endDate =new Date(new Date().setDate(365)) }: GanttProps<BaseData> ) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { width, handleResize } = useWidth({ containerRef });
+  const [currentStartDate, setCurrentStartDate] = useState(startDate);
+  const [currentEndDate, setCurrentEndDate] = useState(endDate);
 
-  if (!endDate) {
-    endDate = new Date(new Date(startDate).setDate(startDate.getDate() + 365));
-  }
+  const handleDateRangeChange = (newStartDate: Date, newEndDate: Date) => {
+    setCurrentStartDate(newStartDate);
+    setCurrentEndDate(newEndDate);
+  };
 
   return (
     <div className="gantt" style={{ width: "100%", height: "100vh", position: "relative" }} ref={containerRef}>
@@ -33,7 +36,13 @@ export const Gantt = ({ headers={}, entries  = [], leftPanelClassName, startDate
         bottom: 0,
         zIndex: 1
       }}>
-        <RightPanel entries={entries} width={100} startDate={startDate} endDate={endDate} />
+        <RightPanel 
+          entries={entries} 
+          width={100} 
+          startDate={currentStartDate} 
+          endDate={currentEndDate}
+          onDateRangeChange={handleDateRangeChange}
+        />
       </div>
       
       {/* Left panel - fixed position, overlaps right panel */}

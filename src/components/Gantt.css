@@ -15,9 +15,24 @@ svg text {
 .col {
     padding: 8px 16px 8px 8px;
     min-width: 150px;
-    font-size: 16x;
+    font-size: 16px;
 }
 
 .row {
     min-height: 40px;
+}
+
+/* Smooth scrolling for infinite scroll */
+.gantt * {
+    scroll-behavior: smooth;
+}
+
+/* Hide scrollbar for cleaner look */
+.gantt ::-webkit-scrollbar {
+    display: none;
+}
+
+.gantt {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }

@@ -22,6 +22,17 @@
         return sunday;
     }
 
+    // Helper to get all 7 days of a week starting from Sunday
+    function getCompleteWeek(weekStart: Date): Date[] {
+        const week: Date[] = [];
+        for (let i = 0; i < 7; i++) {
+            const day = new Date(weekStart);
+            day.setDate(day.getDate() + i);
+            week.push(day);
+        }
+        return week;
+    }
+
     export function useGroupDatesByWeek(dates: Date[]): { weekStart: Date; dates: Date[] }[] {
         return useMemo(() => {
             const weeks: { weekStart: Date; dates: Date[] }[] = [];
@@ -45,6 +56,34 @@
             if (currentWeek.length > 0) {
                 weeks.push({ weekStart: currentWeekStart!, dates: currentWeek });
             }
+
+            return weeks;
+        }, [dates]);
+    }
+
+    // New function that ensures complete weeks with all 7 days
+    export function useCompleteWeeks(dates: Date[]): { weekStart: Date; dates: Date[] }[] {
+        return useMemo(() => {
+            if (dates.length === 0) return [];
+
+            const weeks: { weekStart: Date; dates: Date[] }[] = [];
+            const weekStarts = new Set<string>();
+
+            // Find all unique week starts
+            dates.forEach(date => {
+                const sundayOfWeek = getSundayOfWeek(date);
+                weekStarts.add(sundayOfWeek.toISOString());
+            });
+
+            // Create complete weeks for each week start
+            weekStarts.forEach(weekStartISO => {
+                const weekStart = new Date(weekStartISO);
+                const completeWeek = getCompleteWeek(weekStart);
+                weeks.push({ weekStart, dates: completeWeek });
+            });
+
+            // Sort weeks by start date
+            weeks.sort((a, b) => a.weekStart.getTime() - b.weekStart.getTime());
 
             return weeks;
         }, [dates]);

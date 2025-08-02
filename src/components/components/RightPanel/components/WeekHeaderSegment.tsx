@@ -1,25 +1,24 @@
 import type { JSX } from "react"
-import { WEEK_SEGMENT_HEIGHT } from "../../../../config"
+import { WEEK_SEGMENT_HEIGHT, WEEK_SEGMENT_WIDTH } from "../../../../config"
 
 interface WeekHeaderProps {
     weekStartX: number,
     weekStartDay: string,
-    weekWidth: number
     children :JSX.Element
 }
 
-export const WeekHeaderSegment = ({weekStartX, weekWidth, weekStartDay, children}: WeekHeaderProps) => {
+export const WeekHeaderSegment = ({weekStartX, weekStartDay, children}: WeekHeaderProps) => {
     return  <>
     <rect
         x={weekStartX}
         y={0}
-        width={weekWidth}
+        width={WEEK_SEGMENT_WIDTH}
         height={WEEK_SEGMENT_HEIGHT}
         fill="#f5f5f5"
         stroke="#e0e0e0"
     />
     <text
-        x={weekStartX + weekWidth / 2}
+        x={weekStartX + WEEK_SEGMENT_WIDTH / 2}
         y={WEEK_SEGMENT_HEIGHT / 2 + 2}
         textAnchor="middle"
         fontSize="12"

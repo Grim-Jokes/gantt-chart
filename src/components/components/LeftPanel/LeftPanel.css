@@ -4,6 +4,9 @@
   border-right: 3px solid #A0A0A0;
   position: relative;
   overflow: hidden;
+  z-index: 10;
+  background-color: white;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
 }
 
 .left-panel .header-row {
@@ -21,4 +24,8 @@
 .left-panel .header-row,
 .left-panel .row{
   width: 100%
+}
+
+.drag-handle:hover {
+  background-color: rgba(0, 0, 0, 0.1) !important;
 }

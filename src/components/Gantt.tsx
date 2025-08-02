@@ -14,20 +14,45 @@ interface GanttProps<T extends BaseData> {
   endDate?: Date
 }
 
-export const Gantt = ({ headers={}, entries  = [], leftPanelClassName, startDate = new Date(), endDate =new Date(new Date().setDate(365)) }: GanttProps<BaseData> ) => {
+export const Gantt = ({ headers={}, entries  = [], leftPanelClassName, startDate = new Date(), endDate }: GanttProps<BaseData> ) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { width, handleResize } = useWidth({ containerRef });
 
+  if (!endDate) {
+    endDate = new Date(new Date(startDate).setDate(startDate.getDate() + 365));
+  }
 
-  
-
-  return <div className="gantt" style={{ width: "100%", height: "100vh", display: "flex" }} ref={containerRef}>
-    <LeftPanel 
-      className={leftPanelClassName}  
-      headers={headers} 
-      entries={entries} 
-      width={width} 
-      onDividerDrag={handleResize} />
-    <RightPanel entries={entries} width={100 - width} startDate={startDate} endDate={endDate} />
-  </div>;
+  return (
+    <div className="gantt" style={{ width: "100%", height: "100vh", position: "relative" }} ref={containerRef}>
+      {/* Right panel - scrollable and positioned behind left panel */}
+      <div style={{ 
+        position: "absolute", 
+        left: 0, 
+        top: 0, 
+        right: 0, 
+        bottom: 0,
+        zIndex: 1
+      }}>
+        <RightPanel entries={entries} width={100} startDate={startDate} endDate={endDate} />
+      </div>
+      
+      {/* Left panel - fixed position, overlaps right panel */}
+      <div style={{ 
+        position: "absolute", 
+        left: 0, 
+        top: 0, 
+        bottom: 0,
+        zIndex: 10,
+        width: `${width}%`
+      }}>
+        <LeftPanel 
+          className={leftPanelClassName}  
+          headers={headers} 
+          entries={entries} 
+          width={100} 
+          onDividerDrag={handleResize} 
+        />
+      </div>
+    </div>
+  );
 };

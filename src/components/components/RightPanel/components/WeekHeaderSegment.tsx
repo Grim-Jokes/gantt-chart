@@ -20,7 +20,7 @@ export const WeekHeaderSegment = ({weekStartX, weekWidth, weekStartDay, children
     />
     <text
         x={weekStartX + weekWidth / 2}
-        y={HEADER_ROW_HEIGHT / 3}
+        y={HEADER_ROW_HEIGHT / 2}
         textAnchor="middle"
         fontSize="12"
         fontWeight="bold"
@@ -29,8 +29,7 @@ export const WeekHeaderSegment = ({weekStartX, weekWidth, weekStartDay, children
     >
         {weekStartDay}
     </text>
-    <g transform={`translate(0, ${HEADER_ROW_HEIGHT})`}>
+    
         {children}
-    </g>
 </>
 } 

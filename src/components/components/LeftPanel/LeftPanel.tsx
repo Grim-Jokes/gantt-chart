@@ -20,7 +20,7 @@ export const LeftPanel = <T extends BaseData,>({ entries, headers, width, classN
   const headerFields = useMemo(() => Object.keys(headers), [headers])
 
   return (
-    <div className={`left-panel ${className}`} style={{ width: `${width}%` }}>
+    <div className={`left-panel ${className}`} style={{ width: `${width}%`, height: "100%" }}>
       <Header headers={headerFields} />
 
       <Rows entries={entries} />
@@ -35,7 +35,8 @@ export const LeftPanel = <T extends BaseData,>({ entries, headers, width, classN
           bottom: 0,
           width: '4px',
           cursor: 'col-resize',
-          backgroundColor: 'transparent'
+          backgroundColor: 'transparent',
+          zIndex: 20
         }}
       />
     </div>

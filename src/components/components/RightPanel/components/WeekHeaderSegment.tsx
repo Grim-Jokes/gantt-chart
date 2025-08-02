@@ -1,5 +1,5 @@
 import type { JSX } from "react"
-import { HEADER_ROW_HEIGHT } from "../../../../config"
+import { WEEK_SEGMENT_HEIGHT } from "../../../../config"
 
 interface WeekHeaderProps {
     weekStartX: number,
@@ -14,22 +14,21 @@ export const WeekHeaderSegment = ({weekStartX, weekWidth, weekStartDay, children
         x={weekStartX}
         y={0}
         width={weekWidth}
-        height={HEADER_ROW_HEIGHT}
+        height={WEEK_SEGMENT_HEIGHT}
         fill="#f5f5f5"
         stroke="#e0e0e0"
     />
     <text
         x={weekStartX + weekWidth / 2}
-        y={HEADER_ROW_HEIGHT / 2}
+        y={WEEK_SEGMENT_HEIGHT / 2 + 2}
         textAnchor="middle"
         fontSize="12"
-        fontWeight="bold"
+        fontWeight="semibold"
         fill="#333"
         dominantBaseline="middle"
     >
         {weekStartDay}
     </text>
-    
-        {children}
+    {children}
 </>
 } 

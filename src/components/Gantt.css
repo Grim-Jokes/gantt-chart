@@ -1,3 +1,12 @@
+body {
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, 'Liberation Sans', sans-serif;
+}
+
+/* Apply font family to SVG text elements */
+svg text {
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, 'Liberation Sans', sans-serif;
+}
+
 .gantt {
     border: 1px solid #E1E9EC;
     border-radius: 4px;
@@ -5,8 +14,10 @@
 
 .col {
     padding: 8px 16px 8px 8px;
+    min-width: 150px;
+    font-size: 16x;
 }
 
-.col {
-    min-width: 150px;
+.row {
+    min-height: 40px;
 }
